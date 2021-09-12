@@ -54,7 +54,7 @@ After confirming the sending of tokens, check the balance of the wallet
 chain-maind q bank balances CRO_WALLET_ADDRESS --node https://testnet-croeseid-4.crypto.org:26657
 ```
 # 2. Run relayer
-I used Go implementation of IBC relayer. Also, you can use Hermes - it's rust implementation
+I used Go implementation of IBC relayer version 1.0.0-rc1-152-g112205b. Also, you can use Hermes - it's rust implementation
 Download the relayer and install it
 ```
 git clone https://github.com/cosmos/relayer.git
@@ -191,7 +191,50 @@ channel-id: ...
 ```
 in src and dst
 then re-conduct the transaction
-After successful execution of the transaction, re-check whether the checkboxes appeared everywhere in output of
+In my case I used paths configuration as follow:
+kichain-t-4 <-> testnet-croeseid-4:
+```
+    src:
+      chain-id: kichain-t-4
+      client-id: 07-tendermint-11
+      connection-id: connection-73
+      channel-id: channel-92
+      port-id: transfer
+      order: UNORDERED
+      version: ics20-1
+    dst:
+      chain-id: testnet-croeseid-4
+      client-id: 07-tendermint-68
+      connection-id: connection-43
+      channel-id: channel-38
+      port-id: transfer
+      order: UNORDERED
+      version: ics20-1
+    strategy:
+      type: naive
+```
+kichain-t-4 <-> cygnusx-osmo-1:
+```
+    src:
+      chain-id: kichain-t-4
+      client-id: 07-tendermint-108
+      connection-id: connection-121
+      channel-id: channel-119
+      port-id: transfer
+      order: UNORDERED
+      version: ics20-1
+    dst:
+      chain-id: cygnusx-osmo-1
+      client-id: 07-tendermint-58
+      connection-id: connection-14
+      channel-id: channel-7
+      port-id: transfer
+      order: UNORDERED
+      version: ics20-1
+    strategy:
+      type: naive
+```
+Let's return to the guide. After successful execution of the link transaction, re-check whether the checkboxes appeared everywhere in output of
 ```
 rly paths list -d
 ```
